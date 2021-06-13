@@ -1,0 +1,133 @@
+.app{
+    max-width: 1200px;
+    width: 100%;
+    margin: 100px auto;
+    box-shadow: 0 0 5px #ccc;
+  }
+  .details{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 30px 0;
+  }
+  .details .big-img{
+    max-width: 500px;
+    min-width: 290px;
+    overflow: hidden;
+    margin: 25px;
+  }
+  .big-img img{
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .details .box{
+    max-width: 500px;
+    min-width: 290px;
+    margin: 25px;
+  }
+  .box .row{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  .box .row h2{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .box .row span{
+    color: crimson;
+  }
+  .box .colors button{
+    width: 30px;
+    height: 30px;
+    border: 1px solid #333;
+    outline: none;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .box p{
+    line-height: 1.5;
+    margin: 15px 0;
+  }
+  .thumb{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+  .thumb img{
+    width: 90px;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+    opacity: 0.7;
+    border-radius: 5px;
+  }
+  .thumb img.active{
+    opacity: 1;
+    border: 1px solid lightseagreen;
+  }
+  .box .cart{
+    background: #333;
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 25px;
+    margin-top: 15px;
+  }
+  
+  @media (max-width: 500px){
+    .thumb{
+      height: 50px;
+    }
+    .thumb img{
+      width: 50px;
+    }
+  }
+
+  
+/* <section className="register pos-r o-hidden">
+<Card className="text-center">
+<Card.Header>{product.title}</Card.Header>
+<Card.Body>
+  <Card.Title>Rs.{product.price}</Card.Title>
+  <Card.Text>
+    {product.desc}
+  </Card.Text>
+  <Button variant="primary">Go somewhere</Button>
+</Card.Body>
+<Card.Footer className="text-muted">2 days ago</Card.Footer>
+</Card> */
+
+/* { localStorage.getItem('userInfo') ?  
+    <div className="container">
+<div className="row text-center">
+<div className="col-lg-8 col-md-12 ml-auto mr-auto">
+  <div className="section-title">
+    <div className="title-effect">
+      <div className="bar bar-top"></div>
+      <div className="bar bar-right"></div>
+      <div className="bar bar-bottom"></div>
+      <div className="bar bar-left"></div>
+    </div>
+    <h6>Permanent Information</h6>
+    <h2>Please enter your information here.</h2>
+  </div>
+</div>
+</div>
+<OrderCreate productId={product.id} />
+</div>
+: null}
+</section> */
+
+/* // {
+    //   localStorage.getItem('userInfo') ? <OrderCreate productId={product.id} /> : null
+    // } */
