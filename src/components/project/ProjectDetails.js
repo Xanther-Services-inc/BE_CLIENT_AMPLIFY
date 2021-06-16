@@ -42,7 +42,7 @@ const ProjectDetails = ({ match }) => {
     }
     }, [])
 
-    const {firstName, lastName, zip, endDate, dueDate, startDate, status, email, doc_key, country, product_id, price, gender, state, city, emp_assigned, dob, id, phone, pan } = orderDetails
+    const {firstName, lastName, zip, endDate, dueDate,payment_id, startDate, status, email, doc_key, country, payment, product_id, price, gender, state, city, emp_assigned, dob, id, phone, pan } = orderDetails
 
     const [messages, setMessages] = useState([])
 
@@ -205,6 +205,8 @@ const ProjectDetails = ({ match }) => {
                 <p>Order Id: {id}</p>
                   <p>Product: {product_id}</p>
                   <p>Price: 💰 {price}</p>
+                  <p>Payment: {payment || 'NA'}</p>
+                  <p>Payment Id: {payment_id || 'NA'}</p>
                 </div>
                 <div className="about-project">
                   <div>

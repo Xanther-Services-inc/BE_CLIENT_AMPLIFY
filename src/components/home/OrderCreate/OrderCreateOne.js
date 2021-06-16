@@ -11,6 +11,7 @@ import Footer1 from '../../Footer1'
 import {useDispatch, useSelector} from 'react-redux';
 import jwt_decode from "jwt-decode";
 import RSelect from 'react-select'
+import swal from 'sweetalert'
 
 const {Dragger} = Upload
 
@@ -20,6 +21,22 @@ const FormValidation = () => {
 	const { userInfo } = userLogin
 
 
+ const loadScript = (src) => {
+   return new Promise((resolve) => {
+     const script = document.createElement("script")
+     script.src = src
+     script.onload = () => {
+       resolve(true)
+     }
+     script.onerror = () => {
+       resolve(false)
+     }
+     document.body.appendChild(script)
+   })
+ }
+
+const [paymentDone, setPaymentDone] = useState(false)
+
  
 
   const [products, setProducts] = useState([])
@@ -28,8 +45,7 @@ const FormValidation = () => {
 
        let {data} = await axios.get(`${process.env.REACT_APP_API}/api/v1/products`)
        setProducts(data)
-       console.log(data);
-       console.log(jwt_decode(userInfo.token).email);
+     
       }
       fetchData() 
     }, [])
@@ -44,17 +60,6 @@ const FormValidation = () => {
     const options = products.map((product) => {
       return {value: product.title, label: product.title, price: product.price}
     })
-  // const validateMessages = {
-  //   types: {
-  //     city: '',
-  //     state: '',
-  //     zip: '',
-  //     checkbox: '',
-  //     product: '',
-  //     country: ''
-  //   },
-  // };
-  // function onChange() {}
 
   let history = useHistory()
 
@@ -67,11 +72,11 @@ const FormValidation = () => {
   }
   console.log(fileName);
 
-// const [payment, setPayment] = useState('')
+const [payLater, setPaylater] = useState(false)
 
-  const handlePayNow = () => {
-    // setPayment('Paid')
-    history.push('/pay-now')
+  const handlePayLater = () => {
+    setPaylater(true)
+    
   }
 
   // const handlePayLater = () => {
@@ -80,8 +85,8 @@ const FormValidation = () => {
 
 
 
-  const handleSubmitOrder = (values) => {
-   
+  const handleSubmitOrder = async (values) => {
+   if(payLater) {
     var event = new Date(values.dob)
     let dob = JSON.stringify(event)
     dob = dob.slice(1,11)
@@ -101,7 +106,8 @@ const FormValidation = () => {
     fd.append('zip',values.zip);
     fd.append('product_id',selected.value);
     fd.append('price', selected.price);
-    // fd.append('payment', 'Due')
+    fd.append('payment', 'Due')
+    fd.append('payment_id', 'NA')
     for (const key of Object.keys(fileName)) {
 
       fd.append('image', fileName[key]);
@@ -119,7 +125,119 @@ const FormValidation = () => {
         console.log(response)
     ).catch((error) => console.log(error))
     history.push('/order-success')
+} else {
+ 
+// const payRes = async () => {
+//   let a = await displayRazorpay()
+//   return a
+// }
+
+// console.log(payRes);
+
+// displayRazorpay(values)
+
+  const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
+
+  if(!res) {
+   swal("Warning", "Make sure you're Online!!", "error");
+   return
+
+  }
+  const result = await axios.post(`${process.env.REACT_APP_API}/api/v1/order/pay`, { headers: {"Authorization" : `Bearer ${userInfo.token}`, "price": selected.price} })
+
+  if(!result) {
+   swal("Warning", "Make sure you're Online!!", "error");
+   return
+  }
+
+  // getting the order details back
+  const {amount, id: order_id, currency} = result.data;
+
+  const options = {
+   key: "rzp_test_JOe80VArAs4uX4",
+   amount: amount.toString(),
+   currency,
+   name: "Business Easy",
+   description: "Test description",
+   // image: {logo},
+   order_id: order_id, //some confusion here
+   handler: async function(response) {
+     const data = {
+       orderCreationId: order_id,
+       razorpayPaymentId: response.razorpay_payment_id,
+       razorpayOrderId: response.razorpay_order_id,
+       razorpaySignature: response.razorpay_signature,
+     };
+
+     const result = await axios.post(`${process.env.REACT_APP_API}/api/v1/order/success`, { headers: {"Authorization" : `Bearer ${userInfo.token}`, "data": data} })
+     swal("Payment Success", "Payment Done Successfully!", "success")
+ 
+     if(result.data) {
+       // setPaymentDone(true)
+       var event = new Date(values.dob)
+   let dob = JSON.stringify(event)
+   dob = dob.slice(1,11)
+
+   console.log(values.firstName);
+   var fd = new FormData();
+   fd.append('firstName',values.firstName);
+   fd.append('lastName',values.lastName);
+   fd.append('gender',values.gender);
+   fd.append('email',jwt_decode(userInfo.token).email);
+   fd.append('phone',values.phone);
+   fd.append('dob',dob);
+   fd.append('pan',values.pan);
+   fd.append('country',values.country);
+   fd.append('state',values.state);
+   fd.append('city',values.city);
+   fd.append('zip',values.zip);
+   fd.append('product_id',selected.value);
+   fd.append('price', selected.price);
+   fd.append('payment', 'Paid')
+   fd.append('payment_id', result.data.paymentId)
+   for (const key of Object.keys(fileName)) {
+
+     fd.append('image', fileName[key]);
+   }
+   console.log(values.product_id);
+   
+   
+ 
+ const config = {
+   headers: {'content-type': 'multipart/form-data', "Authorization" : `Bearer ${userInfo.token}`}
 }
+ const url = `${process.env.REACT_APP_API}/api/v1/order`;
+
+ axios.post(url, fd, config).then((response) =>
+       console.log(response)
+   ).catch((error) => console.log(error))
+ history.push('/order-success')
+     }
+
+     console.log(result.data);
+
+   },
+  //  prefill: {
+  //    name: "Mritunjoy Mahanta",
+  //    email: 'joymhnt@gmail.com',
+  //    contact: "8906780443"
+  //  },
+  //  notes: {
+  //    address: "Business Easy Developer"
+  //  },
+   theme: {
+     color: "#61dafb"
+   },
+ };
+
+ const paymentObject = new window.Razorpay(options)
+   paymentObject.open()
+
+  
+  
+  
+}
+  }
 
 useLayoutEffect(() => {
   window.scrollTo(0, 0)
@@ -228,11 +346,11 @@ useLayoutEffect(() => {
                     
                     <div className="sDash_form-action mt-20">
                     
-                    {/*<Button htmlType='submit' onClick={handlePayNow} type="primary" size="large">
-                    Pay advance get flat 5% off
-                    </Button>*/}
-                      <Button htmlType="submit" type="primary" size="large">
-                        Confirm Order
+                    <Button htmlType='submit' onClick={!handlePayLater} type="primary" size="large">
+                    Pay Now
+                    </Button>
+                      <Button htmlType="submit" onClick={handlePayLater} type="primary" size="large">
+                        Pay Later
                       </Button>
                     </div>
                   </Form>

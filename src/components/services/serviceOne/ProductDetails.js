@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {Row, Col, Image} from 'antd';
+import {Row, Col, Image, Button} from 'antd';
 import PropTypes from 'prop-types';
 import Header1 from '../../Header1'
 import Footer1 from '../../Footer1';
 import Axios from 'axios';
+import {Link} from 'react-router-dom';
 
 
 const ProductDetails = ({ match }) => {
@@ -54,8 +55,12 @@ const ProductDetails = ({ match }) => {
       <p className="pdbr__desc">Product Id: {id}</p>
       <p className="pdbr__desc">Description: {desc}</p>
      
+        <Link to='/order-create'>
+        <Button style={{marginTop: '1rem', float: 'right'}} type="primary" size='large'>
+        Order Now
+        </Button>
+        </Link>
         </Col>
-
       </Row>
       <Footer1 />
     </div>
