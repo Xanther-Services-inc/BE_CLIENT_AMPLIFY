@@ -86,6 +86,10 @@ const [payLater, setPaylater] = useState(false)
 
 
   const handleSubmitOrder = async (values) => {
+    if(!values || !selected) {
+      swal("Warning", "Fields shouldn't be empty!", "warning");
+      window.location.reload()
+    }
    if(payLater) {
     var event = new Date(values.dob)
     let dob = JSON.stringify(event)
