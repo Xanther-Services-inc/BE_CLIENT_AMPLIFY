@@ -61,6 +61,7 @@ export const login = (email, password) => async (dispatch) => {
 
 //   User register action
   export const registration = (email,country,gender,password,phone,firstName,lastName) => async (dispatch) => {
+   
     try {
       dispatch({
         type: USER_REGISTER_REQUEST,
@@ -78,10 +79,19 @@ export const login = (email, password) => async (dispatch) => {
         config
       )
   
-      dispatch({
-        type: USER_REGISTER_SUCCESS,
-        payload: data,
-      })
+      if(data) {
+        dispatch({
+          type: USER_REGISTER_SUCCESS,
+          payload: data,
+        })
+        swal("Success!", "Signed Up Successfully!.", "success")
+        window.location.href = '/login';
+      } else {
+        window.location.reload()
+      }
+
+     
+      
   
       // dispatch({
       //   type: USER_LOGIN_SUCCESS,
