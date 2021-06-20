@@ -5,6 +5,7 @@ import Header1 from '../../Header1'
 import Footer1 from '../../Footer1';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
+import MetadataHelmet from '../../MetadataHelmet';
 
 
 const ProductDetails = ({ match }) => {
@@ -33,6 +34,7 @@ const ProductDetails = ({ match }) => {
   return (
 
     <div className="product-details-box__right pdbr">
+      <MetadataHelmet title={title} description={desc} />
         <Header1 />
         <br />
         <br />

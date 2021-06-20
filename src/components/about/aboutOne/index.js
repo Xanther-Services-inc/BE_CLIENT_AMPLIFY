@@ -9,11 +9,14 @@ import Timeline from "./Timeline";
 import Team from "./Team";
 import Pricing from "./Pricing";
 import Testimonial from "./Testimonial";
+import MetadataHelmet from "../../MetadataHelmet";
 
 
 const AboutOne = () => {
 	return (
 		<>
+				<MetadataHelmet title="Business Easy About" description="One Step Tax Solution Simplifying Financial Lives. Tax & Investing platform." />
+
 			<Header />
 			<Title />
 			<div className="page-content">

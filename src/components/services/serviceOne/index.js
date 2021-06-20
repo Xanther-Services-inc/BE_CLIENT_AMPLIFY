@@ -8,11 +8,13 @@ import Testimonial from "./Testimonial";
 
 import PriceTable from "./PriceTable";
 import Counter from "./Counter";
+import MetadataHelmet from "../../MetadataHelmet";
 // import AboutTwo from "./AboutTwo";
 
 const ServiceOne = () => {
 	return (
 		<>
+		<MetadataHelmet title="Business Easy Services" description="One Step Tax Solution Simplifying Financial Lives. Tax & Investing platform." />
 			<Header />
 			<Title />
 			<div className="page-content">
