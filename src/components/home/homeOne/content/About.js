@@ -1,6 +1,6 @@
 import React from "react";
 import dataAbout from "../../../data.json";
-import image from './service.png';
+import image from './service.jpeg';
 
 const About = () => {
 	return (

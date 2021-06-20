@@ -1,6 +1,6 @@
 import React from "react";
 import dataAbout from "../../data.json";
-import image from '../../home/homeOne/content/service.png'
+import image from '../../home/homeOne/content/service.jpeg'
 
 const About = () => {
 	return (
