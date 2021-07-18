@@ -34,7 +34,7 @@ import Dash from "./dash";
 // import ProductScreen1 from "./home/homeOne/content/ProductScreen1.txt";
 // import ProductScreen2 from "./home/homeOne/content/ProductScreen2";
 import FormValidation from "./home/OrderCreate/OrderCreateOne";
-import PayNow from "./home/OrderCreate/payNow";
+
 import OrderSuccess from "./home/OrderCreate/OrderSuccess";
 import ProGrid from "./project/overview/ProGrid";
 import ProjectDetails from "./project/ProjectDetails";
@@ -85,7 +85,7 @@ function MainNavigation() {
         <Route path="/dash" exact={true} component={Dash} />
 
         <Route path="/order-create" component={FormValidation} />
-        <Route path="/pay-now" component={PayNow} />
+
         <Route path="/order-success" component={OrderSuccess} />
         <Route path="/myorders" exact component={ProGrid} />
         <Route path="/myorders/:id" component={ProjectDetails} />
