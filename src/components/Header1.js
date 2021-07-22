@@ -103,6 +103,11 @@ const Header1 = () => {
                           Contact Us
                         </a>
                       </li>
+                      <li className="nav-item" style={{ paddingLeft: "5vw" }}>
+                        <a className="nav-link" href="tel:+91-234-567-8900">
+                          Phone: +91-234-567-8900
+                        </a>
+                      </li>
                     </ul>
                   </div>
 
