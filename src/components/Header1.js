@@ -130,18 +130,33 @@ const Header1 = () => {
                       </NavDropdown.Item>
                     </NavDropdown>
                   ) : (
-                    <a
-                      className="btn btn-theme btn-sm"
-                      href={`/${dataHeader.data.login.link}`}
-                      data-text="Login"
-                    >
-                      {" "}
-                      <span>L</span>
-                      <span>o</span>
-                      <span>g</span>
-                      <span>i</span>
-                      <span>n</span>
-                    </a>
+                    <>
+                      <a
+                        className="btn btn-theme btn-sm"
+                        href={`/${dataHeader.data.login.link}`}
+                        data-text="Login"
+                      >
+                        {" "}
+                        <span>L</span>
+                        <span>o</span>
+                        <span>g</span>
+                        <span>i</span>
+                        <span>n</span>
+                      </a>
+                      <a
+                        className="btn btn-theme btn-sm"
+                        href="/register"
+                        data-text="Signup"
+                      >
+                        {" "}
+                        <span>S</span>
+                        <span>i</span>
+                        <span>g</span>
+                        <span>n</span>
+                        <span>U</span>
+                        <span>p</span>
+                      </a>
+                    </>
                   )}
                 </nav>
               </div>
