@@ -16,8 +16,6 @@ const FileListCard = ({ doc }) => {
               <img src={doc} alt="File Logo" height={40} width={80} />
             </div>
             <div className="file-single__content">
-              {/* <span className="file-name">PAN</span> */}
-
               <span className="file-content-action">
                 <Link onClick={download}>Download</Link>
               </span>
