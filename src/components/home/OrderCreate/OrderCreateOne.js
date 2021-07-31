@@ -39,7 +39,7 @@ const FormValidation = ({ match }) => {
   // Image props
   const props = {
     name: "image",
-    action: "http://localhost:4001/api/v1/blog/upload",
+    action: `${process.env.REACT_APP_API}/api/v1/blog/upload`,
     headers: {
       authorization: "authorization-text",
     },
