@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MetadataHelmet from "../../MetadataHelmet";
 
+var _ = require("lodash");
+
 const ProductDetails = ({ match }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -29,39 +31,47 @@ const ProductDetails = ({ match }) => {
       setProduct(data);
     };
     fetchData();
-  }, []);
-
-  const { title, desc, doc_key, id, price } = product;
+  }, [match.params.id]);
 
   return (
     <div className="product-details-box__right pdbr">
-      <MetadataHelmet title={title} description={desc} />
+      <MetadataHelmet
+        title={_.get(product, "values.title")}
+        description={_.get(product, "values.desc")}
+      />
       <Header1 />
       <br />
       <br />
       <br />
       <br />
       <br />
+
       <Row style={{ margin: "2rem" }}>
         <Col md={10} sm={24} lg={8} xl={8}>
           <Image
             style={{ cursor: "pointer" }}
             width="30vw"
             height="40vh"
-            src={`https://products-imgs.s3.us-east-2.amazonaws.com/${doc_key}`}
+            src={_.get(product, "image.image")}
           />
         </Col>
         <Col offset={2} />
         <Col md={12} sm={24} lg={14} xl={14}>
-          <h2>{title}</h2>
+          <h2>{_.get(product, "values.title")}</h2>
           <h3>
-            <p className="pdbr__currency">Price: {price} Rs.</p>
+            <p className="pdbr__currency">
+              Price:
+              {_.get(product, "values.price")} Rs.
+            </p>
           </h3>
 
-          <p className="pdbr__desc">Product Id: {id}</p>
-          <p className="pdbr__desc">Description: {desc}</p>
+          <p className="pdbr__desc">Product Id: {product.id}</p>
+          <p className="pdbr__desc">
+            Description:
+            {_.get(product, "values.desc")}
+          </p>
 
-          <Link to={userInfo ? "/order-create" : "/login"}>
+          <Link to={userInfo ? `/order/${product.id}` : "/login"}>
             <Button
               style={{ marginTop: "1rem", float: "right" }}
               type="primary"
@@ -72,6 +82,7 @@ const ProductDetails = ({ match }) => {
           </Link>
         </Col>
       </Row>
+
       <Footer1 />
     </div>
   );

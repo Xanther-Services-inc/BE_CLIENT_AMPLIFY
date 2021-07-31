@@ -84,7 +84,7 @@ function MainNavigation() {
 
         <Route path="/dash" exact={true} component={Dash} />
 
-        <Route path="/order-create" component={FormValidation} />
+        <Route path="/order/:id" component={FormValidation} />
 
         <Route path="/order-success" component={OrderSuccess} />
         <Route path="/myorders" exact component={ProGrid} />

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Image } from "antd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import ReactPlayer from "react-player";
+const _ = require("lodash");
 
 const About = () => {
   useEffect(() => {
@@ -54,20 +55,17 @@ const About = () => {
               <div className="featured-item style-2">
                 <div className="featured-icon">
                   {" "}
-                  <Image
-                    height={280}
-                    src={`https://products-imgs.s3.us-east-2.amazonaws.com/${product.doc_key}`}
-                  />
+                  <Image height={280} src={_.get(product, "image.image")} />
                   <span className="rotateme"></span>
                 </div>
                 <div className="featured-title">
-                  <h5>{product.title}</h5>
+                  <h5>{_.get(product, "values.title")}</h5>
                 </div>
                 <div className="featured-desc">
                   <p>
-                    {product.desc.length > 25
-                      ? product.desc.substring(0, 25) + ".."
-                      : product.desc}
+                    {_.get(product, "values.desc").length > 25
+                      ? _.get(product, "values.desc").substring(0, 25) + ".."
+                      : _.get(product, "values.desc")}
                   </p>
                   <Link className="icon-btn mt-4" to={`/service/${product.id}`}>
                     {" "}
