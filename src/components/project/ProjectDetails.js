@@ -15,7 +15,10 @@ import Header1 from "../Header1";
 import Footer1 from "../Footer1";
 import axios from "axios";
 import { Scrollbars } from "react-custom-scrollbars";
+import { Steps } from "antd";
 const _ = require("lodash");
+
+const { Step } = Steps;
 
 const ProjectDetails = ({ match }) => {
   const history = useHistory();
@@ -34,7 +37,7 @@ const ProjectDetails = ({ match }) => {
           `${process.env.REACT_APP_API}/api/v1/order?id=${match.params.id}`,
           { headers: { Authorization: `Bearer ${userInfo.token}` } }
         );
-        console.log("order details");
+        // console.log("order details");
         console.log(data);
         setOrderDetails(data);
       };
@@ -45,32 +48,34 @@ const ProjectDetails = ({ match }) => {
   }, []);
 
   const {
-    firstName,
-    lastName,
-    zip,
-    endDate,
-    dueDate,
+    // firstName,
+    // lastName,
+    // zip,
+    // endDate,
+    // dueDate,
     payment_id,
     startDate,
     status,
     email,
     doc_key,
-    country,
+    // country,
     payment,
     product_id,
     price,
-    gender,
-    state,
-    city,
+    // gender,
+    // state,
+    // city,
     emp_assigned,
-    dob,
+    // dob,
     id,
-    phone,
-    pan,
+    order_steps,
+    // phone,
+    // pan,
   } = orderDetails;
 
   const image = _.get(orderDetails, "image");
   const order_data = _.get(orderDetails, "order_data");
+  console.log(orderDetails);
 
   const details = [];
   for (let [key, value] of Object.entries(order_data ? order_data : {})) {
@@ -207,14 +212,6 @@ const ProjectDetails = ({ match }) => {
                   <p>Payment Id: {payment_id || "NA"}</p>
                 </div>
                 <div className="about-project">
-                  {/* <div>
-                    <span>Ordered by</span>
-                    <p>{firstName + ' ' + lastName}</p>
-                  </div>
-                  <div>
-                    <span>Due Date</span>
-                    <p>{dueDate || 'NA'}</p>
-                  </div> */}
                   <div>
                     <span>Start Date</span>
                     <p className="color-primary">{startDate}</p>
@@ -232,6 +229,12 @@ const ProjectDetails = ({ match }) => {
                     <p className="color-danger">{emp_assigned || "NA"}</p>
                   </div>
                 </div>
+                <Steps size="small" current={2}>
+                  {order_steps &&
+                    order_steps.map((step) => {
+                      return <Step title={step}></Step>;
+                    })}
+                </Steps>
               </Cards>
               <div>
                 <h3>Attached Documents</h3>

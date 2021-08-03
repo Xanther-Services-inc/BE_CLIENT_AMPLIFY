@@ -71,6 +71,9 @@ const FormValidation = ({ match }) => {
 
   const fields = _.get(product, "values.users");
   const title = _.get(product, "values.title");
+  const steps = _.get(product, "values.steps");
+  const new_steps = steps && steps.replace(/ /g, "").split(",");
+  console.log(new_steps);
 
   const loadScript = (src) => {
     return new Promise((resolve) => {
@@ -99,13 +102,6 @@ const FormValidation = ({ match }) => {
     fetchData();
   }, []);
 
-  const [selected, setSelected] = useState(null);
-
-  // const onChangeProduct = (obj) => {
-  //   setSelected(obj);
-  //   console.log(selected);
-  // };
-
   const options = products.map((product) => {
     return { value: product.title, label: product.title, price: product.price };
   });
@@ -126,10 +122,6 @@ const FormValidation = ({ match }) => {
     setPaylater(true);
   };
 
-  // const handlePayLater = () => {
-  //   setPayment('Due')
-  // }
-
   const onFinish = async (values) => {
     if (!values) {
       swal("Warning", "Fields shouldn't be empty!", "warning");
@@ -148,6 +140,7 @@ const FormValidation = ({ match }) => {
             email: jwt_decode(userInfo.token).email,
             product_id: title,
             price: _.get(product, "values.price"),
+            order_steps: new_steps,
           },
           { headers: { Authorization: `Bearer ${userInfo.token}` } }
         )
@@ -155,15 +148,6 @@ const FormValidation = ({ match }) => {
         .catch((error) => console.log(error));
       history.push("/order-success");
     } else {
-      // const payRes = async () => {
-      //   let a = await displayRazorpay()
-      //   return a
-      // }
-
-      // console.log(payRes);
-
-      // displayRazorpay(values)
-
       const res = await loadScript(
         "https://checkout.razorpay.com/v1/checkout.js"
       );
@@ -231,6 +215,7 @@ const FormValidation = ({ match }) => {
                   email: jwt_decode(userInfo.token).email,
                   product_id: product.id,
                   price: _.get(product, "values.price"),
+                  order_steps: new_steps,
                 },
                 { headers: { Authorization: `Bearer ${userInfo.token}` } }
               )
@@ -241,14 +226,7 @@ const FormValidation = ({ match }) => {
 
           console.log(result.data);
         },
-        //  prefill: {
-        //    name: "Mritunjoy Mahanta",
-        //    email: 'joymhnt@gmail.com',
-        //    contact: "8906780443"
-        //  },
-        //  notes: {
-        //    address: "Business Easy Developer"
-        //  },
+
         theme: {
           color: "#61dafb",
         },
