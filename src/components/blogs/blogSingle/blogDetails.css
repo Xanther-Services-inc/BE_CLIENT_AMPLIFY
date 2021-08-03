@@ -1,0 +1,43 @@
+/* body {
+  background-color: rgb(15, 81, 189);
+} */
+
+/* .main-content {
+  background-color: rgb(241, 252, 255);
+  margin: 0 5rem;
+} */
+
+p img {
+  height: 20rem;
+  width: 32rem;
+  margin-left: 5vw;
+
+  height: auto;
+  transition: transform ease-in-out 0.3s;
+}
+p img:hover {
+  transform: scale(1.2);
+}
+
+p:first-child img {
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bolder;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: bolder;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: bolder;
+}
