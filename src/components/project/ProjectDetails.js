@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Form, Input, Button, Progress, Spin } from "antd";
+import { Row, Col, Form, Input, Button, Progress, Spin, Steps } from "antd";
 import FeatherIcon from "feather-icons-react";
 import { Link, NavLink, Switch, Route, useHistory } from "react-router-dom";
 import propTypes from "prop-types";
@@ -15,7 +15,7 @@ import Header1 from "../Header1";
 import Footer1 from "../Footer1";
 import axios from "axios";
 import { Scrollbars } from "react-custom-scrollbars";
-import { Steps } from "antd";
+
 const _ = require("lodash");
 
 const { Step } = Steps;
@@ -55,7 +55,7 @@ const ProjectDetails = ({ match }) => {
     // dueDate,
     payment_id,
     startDate,
-    status,
+    order_status,
     email,
     doc_key,
     // country,
@@ -222,17 +222,20 @@ const ProjectDetails = ({ match }) => {
                   </div> */}
                   <div>
                     <span>Status</span>
-                    <p className="color-danger">{status}</p>
+                    <p className="color-danger">{order_status}</p>
                   </div>
                   <div>
                     <span>Assigned Employee</span>
                     <p className="color-danger">{emp_assigned || "NA"}</p>
                   </div>
                 </div>
-                <Steps size="small" current={2}>
+                <Steps
+                  size="small"
+                  current={order_steps && order_steps.indexOf(order_status)}
+                >
                   {order_steps &&
                     order_steps.map((step) => {
-                      return <Step title={step}></Step>;
+                      return <Step title={step} />;
                     })}
                 </Steps>
               </Cards>
