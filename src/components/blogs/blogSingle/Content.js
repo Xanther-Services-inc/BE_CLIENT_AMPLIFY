@@ -38,14 +38,15 @@ const BlogDetails = () => {
         <br />
         <Row>
           <Col
-            md={{ span: 10, offset: 7 }}
+            md={{ span: 10, offset: 4 }}
             sm={{ span: 20, offset: 2 }}
-            lg={{ span: 8, offset: 8 }}
-            xl={{ span: 8, offset: 7 }}
+            lg={{ span: 8, offset: 4 }}
+            xl={{ span: 8, offset: 4 }}
           >
             <Image
               style={{
                 cursor: "pointer",
+                // marginLeft: "20rem",
               }}
               width="40vw"
               height="50vh"

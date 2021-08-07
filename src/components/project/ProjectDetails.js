@@ -129,12 +129,12 @@ const ProjectDetails = ({ match }) => {
 
   const rightMessage = {
     textAlign: "right",
-    paddingRight: "10px",
+    paddingRight: "1rem",
   };
 
   const leftMessage = {
     textAlign: "left",
-    marginLeft: "10px",
+    marginLeft: "1rem",
   };
 
   return (
@@ -200,6 +200,51 @@ const ProjectDetails = ({ match }) => {
               </Form>
             </Cards>
             {/* new */}
+            {/* new */}
+            <Cards title="Conversations">
+              <Scrollbars
+                style={{
+                  width: "24rem",
+                  height: "20rem",
+                  boxShadow:
+                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                }}
+              >
+                {messages.map((message) => (
+                  <>
+                    {/* <br /> */}
+                    <div
+                      style={
+                        message.user === userInfo.user
+                          ? rightMessage
+                          : leftMessage
+                      }
+                    >
+                      <p style={{ color: "#0a8dff" }}>@{message.user}</p>
+                      {message.message !== "undefined" ? (
+                        <p>{message.message}</p>
+                      ) : null}
+
+                      {message.doc_key !== "sample.jpg" ? (
+                        <Link
+                          to={{
+                            pathname: `https://order-message.s3.us-east-2.amazonaws.com/${message.doc_key}`,
+                          }}
+                          target="_blank"
+                        >
+                          <img
+                            src={`https://order-message.s3.us-east-2.amazonaws.com/${message.doc_key}`}
+                            style={{ height: "7rem", width: "60%" }}
+                          ></img>
+                        </Link>
+                      ) : null}
+                    </div>
+                    <br />
+                  </>
+                ))}
+              </Scrollbars>
+            </Cards>
+            {/* new */}
           </Col>
           <Col xxl={12} xl={16} xs={24}>
             <div className="about-project-wrapper">
@@ -246,51 +291,6 @@ const ProjectDetails = ({ match }) => {
                   ? image.map((doc) => <FileListCard key={doc} doc={doc} />)
                   : []}
               </div>
-
-              {/* new */}
-              <Cards title="Conversations">
-                <Scrollbars
-                  style={{
-                    width: 500,
-                    height: 300,
-                    boxShadow:
-                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                  }}
-                >
-                  {messages.map((message) => (
-                    <>
-                      <div
-                        style={
-                          message.user === userInfo.user
-                            ? leftMessage
-                            : rightMessage
-                        }
-                      >
-                        <p style={{ color: "#0a8dff" }}>@{message.user}</p>
-                        {message.message !== "undefined" ? (
-                          <h5>{message.message}</h5>
-                        ) : null}
-
-                        {message.doc_key !== "sample.jpg" ? (
-                          <Link
-                            to={{
-                              pathname: `https://order-message.s3.us-east-2.amazonaws.com/${message.doc_key}`,
-                            }}
-                            target="_blank"
-                          >
-                            <img
-                              src={`https://order-message.s3.us-east-2.amazonaws.com/${message.doc_key}`}
-                              style={{ height: "7rem", width: "60%" }}
-                            ></img>
-                          </Link>
-                        ) : null}
-                      </div>
-                      <br />
-                    </>
-                  ))}
-                </Scrollbars>
-              </Cards>
-              {/* new */}
             </div>
           </Col>
         </Row>

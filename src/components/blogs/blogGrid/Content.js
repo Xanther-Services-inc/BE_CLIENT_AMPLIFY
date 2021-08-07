@@ -51,7 +51,7 @@ const Content = () => {
                   </div>
                   <div className="post-title">
                     <h4>
-                      <a href="/blogsingle">{post["title"]}</a>
+                      <a href={`/blogs/${post.slug}`}>{post["title"]}</a>
                     </h4>
                   </div>
                   {/* <p>{post["desc"]}</p> */}
