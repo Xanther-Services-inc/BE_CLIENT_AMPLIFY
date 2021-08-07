@@ -175,7 +175,8 @@ const FormValidation = ({ match }) => {
       const { amount, id: order_id, currency } = result.data;
 
       const options = {
-        key: "rzp_test_JOe80VArAs4uX4",
+        // key: "rzp_test_JOe80VArAs4uX4", test mode
+        key: "rzp_live_lPfNA0qxI1YVUt",
         amount: amount.toString(),
         currency,
         name: "Business Easy",
