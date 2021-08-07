@@ -155,7 +155,9 @@ const ProjectDetails = ({ match }) => {
               <h3>Customer Details</h3>
               <hr />
 
-              <h5>Email: {email}</h5>
+              <h5>
+                <strong>Email:</strong> {email}
+              </h5>
 
               <div className="state-single">
                 <div>
@@ -163,7 +165,7 @@ const ProjectDetails = ({ match }) => {
                     details.map((item) => {
                       return (
                         <h5>
-                          {item[0]}: {item[1]}
+                          <strong>{item[0]}:</strong> {item[1]}
                         </h5>
                       );
                     })}
