@@ -52,34 +52,35 @@ export const displayRazorpay = async (
         razorpayOrderId: response.razorpay_order_id,
         razorpaySignature: response.razorpay_signature,
       };
-
+      const dataa = {
+        email,
+        product_id,
+        price,
+        image: imageData,
+        order_data: values,
+        order_steps: steps,
+        data,
+      };
       const result = await axios.post(
         `${process.env.REACT_APP_API}/api/v1/order/success`,
-        {
-          email,
-          product_id,
-          price,
-          image: imageData,
-          order_data: values,
-          order_steps: steps,
-          data,
-        },
+        dataa,
         {
           headers: {
             Authorization: `Bearer ${userInfo.token}`,
           },
         }
       );
+      console.log(result);
       // alert(result.data.msg);
       swal("Payment Success", "Payment Done Successfully!", "success");
       window.location.pathname = "/order-success";
     },
 
-    prefill: {
-      name: "Mritunjoy Mahanta",
-      email: "joymhnt@gmail.com",
-      contact: "9999999999",
-    },
+    // prefill: {
+    //   name: "Mritunjoy Mahanta",
+    //   email: "joymhnt@gmail.com",
+    //   contact: "9999999999",
+    // },
     notes: {
       address: "Xanther services",
     },
