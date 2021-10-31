@@ -32,6 +32,7 @@ const ProjectDetails = ({ match }) => {
 
   useEffect(() => {
     if (userInfo) {
+      console.log("aaa");
       const fetchData = async () => {
         let { data } = await axios.get(
           `${process.env.REACT_APP_API}/api/v1/order?id=${match.params.id}`,
@@ -47,7 +48,7 @@ const ProjectDetails = ({ match }) => {
     }
   }, []);
 
-  const {
+  var {
     // firstName,
     // lastName,
     // zip,
@@ -72,6 +73,8 @@ const ProjectDetails = ({ match }) => {
     // phone,
     // pan,
   } = orderDetails;
+
+  order_steps = order_steps ? order_steps.split(",") : [];
 
   const image = _.get(orderDetails, "image");
   const order_data = _.get(orderDetails, "order_data");
@@ -212,38 +215,39 @@ const ProjectDetails = ({ match }) => {
                     "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
                 }}
               >
-                {messages.map((message) => (
-                  <>
-                    {/* <br /> */}
-                    <div
-                      style={
-                        message.user === userInfo.user
-                          ? rightMessage
-                          : leftMessage
-                      }
-                    >
-                      <p style={{ color: "#0a8dff" }}>@{message.user}</p>
-                      {message.message !== "undefined" ? (
-                        <p>{message.message}</p>
-                      ) : null}
+                {messages &&
+                  messages.map((message) => (
+                    <>
+                      {/* <br /> */}
+                      <div
+                        style={
+                          message.user === userInfo.user
+                            ? rightMessage
+                            : leftMessage
+                        }
+                      >
+                        <p style={{ color: "#0a8dff" }}>@{message.user}</p>
+                        {message.message !== "undefined" ? (
+                          <p>{message.message}</p>
+                        ) : null}
 
-                      {message.doc_key !== "sample.jpg" ? (
-                        <Link
-                          to={{
-                            pathname: `https://order-message.s3.us-east-2.amazonaws.com/${message.doc_key}`,
-                          }}
-                          target="_blank"
-                        >
-                          <img
-                            src={`https://order-message.s3.us-east-2.amazonaws.com/${message.doc_key}`}
-                            style={{ height: "7rem", width: "60%" }}
-                          ></img>
-                        </Link>
-                      ) : null}
-                    </div>
-                    <br />
-                  </>
-                ))}
+                        {message.doc_key !== "sample.jpg" ? (
+                          <Link
+                            to={{
+                              pathname: `https://order-message.s3.us-east-2.amazonaws.com/${message.doc_key}`,
+                            }}
+                            target="_blank"
+                          >
+                            <img
+                              src={`https://order-message.s3.us-east-2.amazonaws.com/${message.doc_key}`}
+                              style={{ height: "7rem", width: "60%" }}
+                            ></img>
+                          </Link>
+                        ) : null}
+                      </div>
+                      <br />
+                    </>
+                  ))}
               </Scrollbars>
             </Cards>
             {/* new */}
@@ -278,7 +282,7 @@ const ProjectDetails = ({ match }) => {
                 </div>
                 <Steps
                   size="small"
-                  current={order_steps && order_steps.indexOf(order_status)}
+                  current={order_steps ? order_steps.indexOf(order_status) : 0}
                 >
                   {order_steps &&
                     order_steps.map((step) => {
