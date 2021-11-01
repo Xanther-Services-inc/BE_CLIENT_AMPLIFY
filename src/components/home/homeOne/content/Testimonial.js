@@ -144,9 +144,10 @@ const Testimonial = () => {
                                 <a href="/#">
                                   <img
                                     className="img-fluid"
-                                    src={`https://testi-monial.s3.us-east-2.amazonaws.com/${img.doc_key}`}
+                                    src={img.doc_key}
                                     alt=""
                                   />
+                                  {console.log(img)}
                                 </a>
                               </li>
                             ))}
