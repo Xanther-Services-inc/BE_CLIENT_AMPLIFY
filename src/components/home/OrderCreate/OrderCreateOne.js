@@ -93,8 +93,9 @@ const FormValidation = ({ match }) => {
     if (!payLater) {
       displayRazorpay(price, product_id, imageData, values, steps, email);
     } else {
+      console.log(userInfo.token)
       const result = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/order`,
+        `${process.env.REACT_APP_API}/api/v1/order/`,
         {
           price,
           product_id,
@@ -102,12 +103,12 @@ const FormValidation = ({ match }) => {
           order_data: values,
           order_steps: steps,
           email,
-        },
+        },/*
         {
           headers: {
             Authorization: `Bearer ${userInfo ? userInfo.token : ""}`,
-          },
-        }
+          }, 
+        }*/
       );
       swal("Payment Success", "Payment Done Successfully!", "success");
       window.location.pathname = "/order-success";

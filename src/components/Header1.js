@@ -14,6 +14,7 @@ const Header1 = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  console.log(userInfo)
   const history = useHistory();
 
   const logoutHandler = () => {
@@ -111,8 +112,8 @@ const Header1 = () => {
                     </ul>
                   </div>
 
-                  {userInfo ? (
-                    <NavDropdown title={userInfo.user} id="username">
+                  {userInfo && userInfo.user ? (
+                    <NavDropdown title={userInfo.user.firstName} id="username">
                       {/* <NavDropdown.Item>Profile</NavDropdown.Item> */}
                       <NavDropdown.Item>
                         <Link to="/myorders" style={{ color: "#000" }}>
