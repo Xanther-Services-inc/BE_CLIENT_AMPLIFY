@@ -29,14 +29,9 @@ const About = () => {
     <section>
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          height: 40,
         }}
-      >
-        <ReactPlayer url="https://youtu.be/RL_WC5ECKgc" controls light pip />
-      </div>
+      />
       <div className="container">
         <h2
           className="mt-3"
@@ -47,7 +42,7 @@ const About = () => {
             fontWeight: "bold",
           }}
         >
-          Our <span style={{ color: "#4a92f7" }}>Services</span>
+           <div style={{ color: "#4a92f7" }}>Our Services</div>
         </h2>
         <div className="row mt-3">
           {products.map((product) => (

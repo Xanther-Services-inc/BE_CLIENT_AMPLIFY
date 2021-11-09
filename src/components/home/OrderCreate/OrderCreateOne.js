@@ -95,7 +95,7 @@ const FormValidation = ({ match }) => {
     } else {
       console.log(userInfo.token)
       const result = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/order/`,
+        `${process.env.REACT_APP_API}/api/v1/order/payLater`,
         {
           price,
           product_id,

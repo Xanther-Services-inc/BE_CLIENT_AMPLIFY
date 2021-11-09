@@ -16,7 +16,7 @@ const ServiceOne = () => {
 		<>
 		<MetadataHelmet title="Business Easy Services" description="One Step Tax Solution Simplifying Financial Lives. Tax & Investing platform." />
 			<Header />
-			<Title />
+			{/*<Title /> */}
 			<div className="page-content">
 				<About />
 				<Counter />

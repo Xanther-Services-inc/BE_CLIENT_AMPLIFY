@@ -141,16 +141,20 @@ const ProjectDetails = ({ match }) => {
 
   const onFinish = async (values) => {
     console.log(values);
-    setMessageData({ ...messageData, ...values });
+    setMessageData(values.message);
     // setFields({ ...fields, values });
     const postData = await axios
-      .post(`${process.env.REACT_APP_API}/api/v1/message/send`, {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      })
+      .post(
+        `${process.env.REACT_APP_API}/api/v1/message/send`,
+        { message: values.message,order_id: id, img: "", user: userInfo.user.firstName },
+        {
+          headers: { "content-type": "application/json" },
+        }
+      )
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
     swal("Congratulation!", "Product Added Successfully", "success");
-    // window.location.reload();
+    window.location.reload();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -267,6 +271,7 @@ const ProjectDetails = ({ match }) => {
               >
                 {messages &&
                   messages.map((message) => (
+                    //console.log(messages)
                     <>
                       {/* <br /> */}
                       <div
